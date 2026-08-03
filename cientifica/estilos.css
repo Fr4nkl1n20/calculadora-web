@@ -27,13 +27,94 @@
 
 body {
   margin: 0;
+  /* Sin esto, los degradados se posicionan respecto a una caja más corta que
+     la ventana y se ve un corte de tono donde termina el contenido. */
+  min-height: 100vh;
   padding: 1.5rem 1rem 3rem;
   background:
-    radial-gradient(1200px 600px at 50% -10%, #16203a 0%, transparent 60%),
+    radial-gradient(1200px 600px at 50% -12%, rgba(28, 44, 84, 0.9) 0%, transparent 62%),
+    radial-gradient(760px 460px at 10% 82%, rgba(20, 78, 96, 0.22) 0%, transparent 70%),
+    radial-gradient(640px 400px at 92% 18%, rgba(74, 48, 124, 0.20) 0%, transparent 70%),
     var(--pagina);
   color: var(--tinta);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   -webkit-text-size-adjust: 100%;
+}
+
+/* ---------- Campo de estrellas ----------
+   Dos capas fijas con mosaicos de 320 px y 590 px. Al ser los periodos
+   distintos y no múltiplos entre sí, la repetición no llega a percibirse.
+   Se dibujan con gradientes en lugar de una imagen para que las estrellas
+   sigan siendo nítidas en cualquier resolución: nada se reescala. */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: repeat;
+}
+
+/* capa cercana: muchas estrellas pequeñas */
+body::before {
+  background-size: 320px 320px;
+  background-image:
+    radial-gradient(1.6px 1.6px at 18px 42px,   rgba(214, 240, 255, 0.95), transparent),
+    radial-gradient(1.1px 1.1px at 57px 190px,  rgba(170, 214, 236, 0.70), transparent),
+    radial-gradient(1.4px 1.4px at 96px 12px,   rgba(226, 244, 255, 0.85), transparent),
+    radial-gradient(1.0px 1.0px at 133px 264px, rgba(158, 204, 228, 0.60), transparent),
+    radial-gradient(1.7px 1.7px at 170px 78px,  rgba(220, 242, 255, 0.90), transparent),
+    radial-gradient(1.2px 1.2px at 208px 150px, rgba(180, 220, 240, 0.72), transparent),
+    radial-gradient(1.0px 1.0px at 245px 300px, rgba(160, 206, 230, 0.55), transparent),
+    radial-gradient(1.5px 1.5px at 282px 36px,  rgba(214, 240, 255, 0.88), transparent),
+    radial-gradient(1.1px 1.1px at 31px 118px,  rgba(176, 216, 238, 0.66), transparent),
+    radial-gradient(1.3px 1.3px at 72px 238px,  rgba(200, 232, 250, 0.78), transparent),
+    radial-gradient(1.0px 1.0px at 110px 168px, rgba(158, 204, 228, 0.58), transparent),
+    radial-gradient(1.6px 1.6px at 149px 20px,  rgba(226, 244, 255, 0.92), transparent),
+    radial-gradient(1.1px 1.1px at 187px 290px, rgba(172, 212, 236, 0.64), transparent),
+    radial-gradient(1.4px 1.4px at 224px 96px,  rgba(206, 236, 252, 0.82), transparent),
+    radial-gradient(1.0px 1.0px at 262px 214px, rgba(160, 206, 230, 0.56), transparent),
+    radial-gradient(1.3px 1.3px at 300px 140px, rgba(196, 230, 248, 0.76), transparent),
+    radial-gradient(1.2px 1.2px at 8px 272px,   rgba(182, 222, 242, 0.68), transparent),
+    radial-gradient(1.0px 1.0px at 45px 84px,   rgba(156, 202, 226, 0.54), transparent),
+    radial-gradient(1.5px 1.5px at 88px 306px,  rgba(216, 240, 255, 0.86), transparent),
+    radial-gradient(1.1px 1.1px at 126px 122px, rgba(174, 214, 238, 0.62), transparent),
+    radial-gradient(1.3px 1.3px at 163px 200px, rgba(198, 232, 250, 0.74), transparent),
+    radial-gradient(1.0px 1.0px at 199px 44px,  rgba(158, 204, 228, 0.52), transparent),
+    radial-gradient(1.4px 1.4px at 236px 250px, rgba(208, 238, 254, 0.80), transparent),
+    radial-gradient(1.1px 1.1px at 274px 174px, rgba(178, 218, 240, 0.66), transparent);
+}
+
+/* capa lejana: menos estrellas, algunas con halo */
+body::after {
+  background-size: 590px 590px;
+  background-image:
+    /* estrellas con halo */
+    radial-gradient(7px 7px at 120px 150px,   rgba(150, 205, 240, 0.16), transparent),
+    radial-gradient(2.4px 2.4px at 120px 150px, rgba(235, 248, 255, 1), transparent),
+    radial-gradient(8px 8px at 450px 350px,   rgba(190, 170, 245, 0.14), transparent),
+    radial-gradient(2.2px 2.2px at 450px 350px, rgba(240, 236, 255, 0.95), transparent),
+    radial-gradient(6px 6px at 300px 80px,    rgba(150, 230, 225, 0.14), transparent),
+    radial-gradient(2px 2px at 300px 80px,    rgba(232, 252, 250, 0.92), transparent),
+    /* estrellas normales */
+    radial-gradient(1.4px 1.4px at 40px 90px,   rgba(206, 236, 252, 0.80), transparent),
+    radial-gradient(1.2px 1.2px at 150px 320px, rgba(184, 222, 242, 0.70), transparent),
+    radial-gradient(1.6px 1.6px at 260px 60px,  rgba(220, 242, 255, 0.88), transparent),
+    radial-gradient(1.1px 1.1px at 370px 250px, rgba(170, 212, 236, 0.62), transparent),
+    radial-gradient(1.5px 1.5px at 480px 130px, rgba(212, 238, 254, 0.84), transparent),
+    radial-gradient(1.2px 1.2px at 555px 400px, rgba(180, 220, 240, 0.66), transparent),
+    radial-gradient(1.3px 1.3px at 90px 470px,  rgba(198, 232, 250, 0.74), transparent),
+    radial-gradient(1.0px 1.0px at 200px 180px, rgba(160, 206, 230, 0.55), transparent),
+    radial-gradient(1.5px 1.5px at 310px 520px, rgba(214, 240, 255, 0.86), transparent),
+    radial-gradient(1.1px 1.1px at 420px 40px,  rgba(176, 216, 238, 0.64), transparent),
+    radial-gradient(1.3px 1.3px at 530px 300px, rgba(200, 234, 252, 0.76), transparent),
+    radial-gradient(1.0px 1.0px at 70px 240px,  rgba(158, 204, 228, 0.52), transparent),
+    radial-gradient(1.4px 1.4px at 180px 560px, rgba(208, 238, 254, 0.82), transparent),
+    radial-gradient(1.2px 1.2px at 290px 380px, rgba(182, 222, 242, 0.68), transparent),
+    radial-gradient(1.1px 1.1px at 400px 460px, rgba(172, 212, 236, 0.60), transparent),
+    radial-gradient(1.5px 1.5px at 510px 210px, rgba(216, 242, 255, 0.85), transparent);
 }
 
 .aparato {
