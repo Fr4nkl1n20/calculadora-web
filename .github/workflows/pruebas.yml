@@ -14,7 +14,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       # No hay dependencias que instalar: la lógica es JavaScript puro y las
       # pruebas usan el ejecutor incorporado de Node.
