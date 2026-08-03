@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 420" width="44" height="420" role="img" aria-label="Bate de béisbol">
+  <defs>
+    <linearGradient id="madera" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e8b978"/>
+      <stop offset="0.32" stop-color="#c88b45"/>
+      <stop offset="0.72" stop-color="#9d6329"/>
+      <stop offset="1" stop-color="#6f4218"/>
+    </linearGradient>
+    <path id="cuerpo" d="M27 14 C 92 13, 132 11, 172 9 C 252 5, 332 3, 374 3 A 19 19 0 0 1 374 41 C 332 41, 252 39, 172 35 C 132 33, 92 31, 27 30 Z"/>
+    <clipPath id="recorte"><use href="#cuerpo"/></clipPath>
+  </defs>
+
+  <!-- el mismo dibujo horizontal, girado 90 grados para ocupar el lienzo vertical -->
+  <g transform="translate(44 0) rotate(90)">
+    <ellipse cx="17" cy="22" rx="14" ry="17" fill="url(#madera)" stroke="#4e2c11" stroke-width="2"/>
+    <use href="#cuerpo" fill="url(#madera)"/>
+
+    <g clip-path="url(#recorte)">
+      <rect x="24" y="0" width="74" height="44" fill="#a2202c"/>
+      <g stroke="#7d1420" stroke-width="1.6" opacity="0.7">
+        <path d="M34 0 L26 44"/><path d="M48 0 L40 44"/><path d="M62 0 L54 44"/>
+        <path d="M76 0 L68 44"/><path d="M90 0 L82 44"/>
+      </g>
+      <g fill="none" stroke="#6b3f19" stroke-width="1.4" opacity="0.45">
+        <path d="M104 17 C 190 13, 290 10, 392 9"/>
+        <path d="M104 25 C 190 23, 290 22, 392 22"/>
+        <path d="M104 32 C 190 31, 290 33, 392 35"/>
+      </g>
+      <path d="M27 12 C 120 10, 260 4, 392 4 L 392 11 C 260 11, 120 17, 27 19 Z" fill="#ffe6bd" opacity="0.3"/>
+      <path d="M27 30 C 120 32, 260 40, 392 40 L 392 44 L 27 44 Z" fill="#3d2210" opacity="0.35"/>
+    </g>
+
+    <use href="#cuerpo" fill="none" stroke="#4e2c11" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+</svg>

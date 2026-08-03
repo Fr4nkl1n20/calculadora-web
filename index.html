@@ -3,43 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#04091a">
   <title>Calculadora</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="calculadora">
-    <div class="pantalla">
-      <div class="historial" id="historial" aria-live="polite"></div>
-      <div class="resultado" id="resultado" aria-live="assertive">0</div>
+  <div class="mesa">
+    <!-- Marco de bates de béisbol -->
+    <div class="marco" aria-hidden="true">
+      <span class="bate bate-arriba"></span>
+      <span class="bate bate-abajo"></span>
+      <span class="bate bate-izquierda"></span>
+      <span class="bate bate-derecha"></span>
     </div>
 
-    <div class="teclado">
-      <button class="tecla funcion" data-accion="limpiar">AC</button>
-      <button class="tecla funcion" data-accion="signo">+/−</button>
-      <button class="tecla funcion" data-accion="porcentaje">%</button>
-      <button class="tecla operador" data-operador="/">÷</button>
+    <main class="calculadora">
+      <figure class="escena">
+        <img src="assets/escena.svg" alt="Un león de melena escarlata emerge del mar y devora un galeón de casco azul marino, partiéndolo en dos.">
+      </figure>
 
-      <button class="tecla" data-digito="7">7</button>
-      <button class="tecla" data-digito="8">8</button>
-      <button class="tecla" data-digito="9">9</button>
-      <button class="tecla operador" data-operador="*">×</button>
+      <div class="pantalla">
+        <div class="historial" id="historial" aria-live="polite"></div>
+        <div class="resultado" id="resultado" aria-live="assertive">0</div>
+      </div>
 
-      <button class="tecla" data-digito="4">4</button>
-      <button class="tecla" data-digito="5">5</button>
-      <button class="tecla" data-digito="6">6</button>
-      <button class="tecla operador" data-operador="-">−</button>
+      <div class="teclado">
+        <button class="tecla funcion" data-accion="limpiar">AC</button>
+        <button class="tecla funcion" data-accion="signo">+/−</button>
+        <button class="tecla funcion" data-accion="porcentaje">%</button>
+        <button class="tecla operador" data-operador="/">÷</button>
 
-      <button class="tecla" data-digito="1">1</button>
-      <button class="tecla" data-digito="2">2</button>
-      <button class="tecla" data-digito="3">3</button>
-      <button class="tecla operador" data-operador="+">+</button>
+        <button class="tecla" data-digito="7">7</button>
+        <button class="tecla" data-digito="8">8</button>
+        <button class="tecla" data-digito="9">9</button>
+        <button class="tecla operador" data-operador="*">×</button>
 
-      <button class="tecla" data-digito="0">0</button>
-      <button class="tecla" data-accion="decimal">,</button>
-      <button class="tecla funcion" data-accion="borrar" aria-label="Borrar">⌫</button>
-      <button class="tecla igual" data-accion="igual">=</button>
-    </div>
-  </main>
+        <button class="tecla" data-digito="4">4</button>
+        <button class="tecla" data-digito="5">5</button>
+        <button class="tecla" data-digito="6">6</button>
+        <button class="tecla operador" data-operador="-">−</button>
+
+        <button class="tecla" data-digito="1">1</button>
+        <button class="tecla" data-digito="2">2</button>
+        <button class="tecla" data-digito="3">3</button>
+        <button class="tecla operador" data-operador="+">+</button>
+
+        <button class="tecla" data-digito="0">0</button>
+        <button class="tecla" data-accion="decimal">,</button>
+        <button class="tecla funcion" data-accion="borrar" aria-label="Borrar">⌫</button>
+        <button class="tecla igual" data-accion="igual">=</button>
+      </div>
+    </main>
+  </div>
 
   <script src="app.js"></script>
 </body>
