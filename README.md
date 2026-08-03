@@ -29,12 +29,17 @@ sitio completo pesa unos pocos kilobytes.
 - Formato numérico es-VE (punto para miles, coma para decimales).
 - Manejo de errores: la división entre cero muestra `Error`.
 
-## Limitación conocida
+## Precisión
 
-Los resultados se redondean a 12 cifras significativas (`toPrecision(12)` en
-`aTexto`), pero la interfaz permite escribir hasta 15 dígitos. Un número de más
-de 12 dígitos pierde precisión al operar: `123456789012345 + 0` devuelve
-`123.456.789.012.000`. Se corrige alineando ambos límites.
+Un `double` de JavaScript conserva entre 15 y 17 cifras significativas. La
+calculadora trabaja con 15, definidas una sola vez en la constante
+`CIFRAS_SIGNIFICATIVAS` de `app.js`, que gobierna a la vez cuántos dígitos se
+pueden teclear y con cuánta precisión se redondea el resultado.
+
+Mantener ambos límites atados a un mismo valor es lo que evita el fallo: si la
+entrada admite más dígitos que la precisión de salida, los números largos se
+corrompen en silencio al operar. Redondear a 15 cifras sigue bastando para
+ocultar los artefactos de coma flotante (`0,1 + 0,2` da `0,3`).
 
 ## Estructura
 

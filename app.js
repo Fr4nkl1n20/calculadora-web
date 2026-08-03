@@ -2,6 +2,14 @@
 
 const SIMBOLOS = { '+': '+', '-': '−', '*': '×', '/': '÷' };
 
+// Un double de JavaScript conserva entre 15 y 17 cifras significativas.
+// Usamos 15: es el máximo que se puede escribir y devolver sin perder dígitos,
+// y sigue bastando para limpiar los artefactos de coma flotante.
+// Este valor gobierna a la vez cuánto se puede teclear y con cuánta precisión
+// se redondea el resultado; si los dos números se separan, un número más largo
+// que la precisión de salida se corrompe en silencio al operar.
+const CIFRAS_SIGNIFICATIVAS = 15;
+
 const estado = {
   actual: '0',      // número que se está escribiendo (con '.' interno)
   previo: null,     // operando izquierdo pendiente
@@ -31,7 +39,7 @@ function formatear(valor) {
 // (0.1 + 0.2 -> "0.3" en vez de "0.30000000000000004").
 function aTexto(numero) {
   if (!Number.isFinite(numero)) return 'Error';
-  return String(parseFloat(numero.toPrecision(12)));
+  return String(parseFloat(numero.toPrecision(CIFRAS_SIGNIFICATIVAS)));
 }
 
 function actualizarPantalla() {
@@ -74,7 +82,7 @@ function ingresarDigito(digito) {
     estado.sobrescribir = false;
   } else if (estado.actual === '0') {
     estado.actual = digito;
-  } else if (estado.actual.replace(/[-.]/g, '').length < 15) {
+  } else if (estado.actual.replace(/[-.]/g, '').length < CIFRAS_SIGNIFICATIVAS) {
     estado.actual += digito;
   }
 }
