@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 420" width="44" height="420" role="img" aria-label="Bate de béisbol">
+<!-- preserveAspectRatio="none": se usa como fondo CSS estirado al alto de la
+     tarjeta, y sin esto el dibujo conservaría su proporción y quedaría
+     centrado, dejando huecos arriba y abajo. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 420" width="44" height="420" preserveAspectRatio="none" role="img" aria-label="Bate de béisbol">
   <defs>
     <linearGradient id="madera" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#e8b978"/>

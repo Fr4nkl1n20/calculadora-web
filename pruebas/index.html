@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pruebas de la calculadora</title>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      padding: 2rem 1.25rem;
+      background: #04091a;
+      color: #f4efe4;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    main { max-width: 940px; margin: 0 auto; }
+    h1 { margin: 0 0 0.35rem; font-size: 1.4rem; }
+    .pie { margin: 0 0 1.5rem; color: #9db2cc; font-size: 0.9rem; }
+    .resumen {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .resumen.bien { background: #14532d; color: #b7f0c8; }
+    .resumen.mal  { background: #6b1420; color: #ffd9dd; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    th { color: #e8b53f; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    td.estado { width: 5.5rem; font-weight: 700; }
+    tr.pasa td.estado { color: #6ee7a0; }
+    tr.falla td.estado { color: #ff8f9b; }
+    tr.falla { background: rgba(193, 39, 45, 0.14); }
+    code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; color: #ffce5c; }
+    .valor { font-family: ui-monospace, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Pruebas de la calculadora</h1>
+    <p class="pie">
+      Los mismos casos que ejecuta GitHub Actions en cada push, definidos en
+      <code>pruebas/casos.js</code>. Abre este archivo en el navegador para verlos.
+    </p>
+    <div id="resumen" class="resumen">Ejecutando…</div>
+    <table>
+      <thead>
+        <tr><th>Estado</th><th>Caso</th><th>Pulsaciones</th><th>Esperado</th><th>Obtenido</th></tr>
+      </thead>
+      <tbody id="filas"></tbody>
+    </table>
+  </main>
+
+  <script src="../calculadora.js"></script>
+  <script src="casos.js"></script>
+  <script>
+    (function () {
+      const filas = document.getElementById('filas');
+      let fallos = 0;
+
+      for (const caso of CASOS) {
+        const calc = crearCalculadora();
+        let obtenido;
+        try {
+          reproducir(calc, caso.teclas);
+          obtenido = leer(calc, caso.campo);
+        } catch (error) {
+          obtenido = 'excepción: ' + error.message;
+        }
+
+        const ok = obtenido === caso.esperado;
+        if (!ok) fallos++;
+
+        const tr = document.createElement('tr');
+        tr.className = ok ? 'pasa' : 'falla';
+        for (const [texto, clase] of [
+          [ok ? 'PASA' : 'FALLA', 'estado'],
+          [caso.nombre, ''],
+          [caso.teclas, 'valor'],
+          [caso.esperado, 'valor'],
+          [obtenido, 'valor'],
+        ]) {
+          const td = document.createElement('td');
+          td.className = clase;
+          td.textContent = texto;
+          tr.append(td);
+        }
+        filas.append(tr);
+      }
+
+      const resumen = document.getElementById('resumen');
+      resumen.textContent = `${CASOS.length} pruebas · ${fallos} fallo${fallos === 1 ? '' : 's'}`;
+      resumen.className = 'resumen ' + (fallos === 0 ? 'bien' : 'mal');
+      document.title = (fallos === 0 ? 'OK' : 'FALLOS') + ' — Pruebas de la calculadora';
+    })();
+  </script>
+</body>
+</html>

@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#04091a">
+  <meta name="description" content="Calculadora web con temática de béisbol, sin dependencias y con soporte sin conexión.">
   <title>Calculadora</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icono-192.png">
 </head>
 <body>
   <div class="mesa">
@@ -23,39 +27,54 @@
       </figure>
 
       <div class="pantalla">
-        <div class="historial" id="historial" aria-live="polite"></div>
+        <div class="linea-superior">
+          <span class="indicador-memoria" id="memoria" hidden title="Hay un valor en memoria">M</span>
+          <span class="historial" id="historial" aria-live="polite"></span>
+        </div>
         <div class="resultado" id="resultado" aria-live="assertive">0</div>
       </div>
 
       <div class="teclado">
+        <button class="tecla memoria" data-accion="memoria-limpiar" title="Borrar memoria">MC</button>
+        <button class="tecla memoria" data-accion="memoria-leer" title="Leer memoria">MR</button>
+        <button class="tecla memoria" data-accion="memoria-sumar" title="Sumar a memoria">M+</button>
+        <button class="tecla funcion" data-accion="raiz" aria-label="Raíz cuadrada">√</button>
+
         <button class="tecla funcion" data-accion="limpiar">AC</button>
-        <button class="tecla funcion" data-accion="signo">+/−</button>
+        <button class="tecla funcion" data-accion="signo" aria-label="Cambiar signo">+/−</button>
         <button class="tecla funcion" data-accion="porcentaje">%</button>
-        <button class="tecla operador" data-operador="/">÷</button>
+        <button class="tecla operador" data-operador="/" aria-label="Dividir">÷</button>
 
         <button class="tecla" data-digito="7">7</button>
         <button class="tecla" data-digito="8">8</button>
         <button class="tecla" data-digito="9">9</button>
-        <button class="tecla operador" data-operador="*">×</button>
+        <button class="tecla operador" data-operador="*" aria-label="Multiplicar">×</button>
 
         <button class="tecla" data-digito="4">4</button>
         <button class="tecla" data-digito="5">5</button>
         <button class="tecla" data-digito="6">6</button>
-        <button class="tecla operador" data-operador="-">−</button>
+        <button class="tecla operador" data-operador="-" aria-label="Restar">−</button>
 
         <button class="tecla" data-digito="1">1</button>
         <button class="tecla" data-digito="2">2</button>
         <button class="tecla" data-digito="3">3</button>
-        <button class="tecla operador" data-operador="+">+</button>
+        <button class="tecla operador" data-operador="+" aria-label="Sumar">+</button>
 
         <button class="tecla" data-digito="0">0</button>
-        <button class="tecla" data-accion="decimal">,</button>
-        <button class="tecla funcion" data-accion="borrar" aria-label="Borrar">⌫</button>
-        <button class="tecla igual" data-accion="igual">=</button>
+        <button class="tecla" data-accion="decimal" aria-label="Coma decimal">,</button>
+        <button class="tecla funcion" data-accion="borrar" aria-label="Borrar un dígito">⌫</button>
+        <button class="tecla igual" data-accion="igual" aria-label="Igual">=</button>
       </div>
+
+      <details class="registro">
+        <summary>Historial de operaciones</summary>
+        <p class="registro-vacio" id="registro-vacio">Todavía no has hecho ninguna operación.</p>
+        <ol id="registro"></ol>
+      </details>
     </main>
   </div>
 
+  <script src="calculadora.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

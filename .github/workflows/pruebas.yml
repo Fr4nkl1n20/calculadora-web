@@ -1,0 +1,22 @@
+name: Pruebas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No hay dependencias que instalar: la lógica es JavaScript puro y las
+      # pruebas usan el ejecutor incorporado de Node.
+      - name: Ejecutar las pruebas
+        run: npm test

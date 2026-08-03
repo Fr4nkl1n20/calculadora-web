@@ -1,0 +1,10 @@
+{
+  "name": "calculadora-web",
+  "version": "1.0.0",
+  "description": "Calculadora web con temática de béisbol, sin dependencias.",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test \"pruebas/**/*.test.js\""
+  }
+}

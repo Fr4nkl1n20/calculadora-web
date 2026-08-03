@@ -95,10 +95,13 @@ body {
   border: 1px solid var(--borde-oro);
 }
 
+/* Recortada en altura para dejar sitio al teclado ampliado y al historial. */
 .escena img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 112px;
+  object-fit: cover;
+  object-position: 50% 46%;
 }
 
 /* ---------- Pantalla tipo marcador ---------- */
@@ -114,8 +117,26 @@ body {
   overflow: hidden;
 }
 
-.historial {
+.linea-superior {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   min-height: 1.3rem;
+}
+
+.indicador-memoria {
+  flex: none;
+  padding: 0.05rem 0.4rem;
+  border-radius: 5px;
+  background: var(--escarlata);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.historial {
+  flex: 1;
   font-size: 0.9rem;
   color: var(--tenue);
   letter-spacing: 0.02em;
@@ -156,7 +177,7 @@ body {
   appearance: none;
   border: none;
   padding: 0;
-  aspect-ratio: 1 / 0.82;
+  aspect-ratio: 1 / 0.68;
   border-radius: 13px;
   font-family: inherit;
   font-size: 1.25rem;
@@ -202,8 +223,90 @@ body {
   font-size: 1.4rem;
 }
 
+.tecla.memoria {
+  background: #142742;
+  color: var(--oro);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
 .tecla.operador.seleccionado {
   box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.85), 0 3px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Historial de operaciones ---------- */
+
+.registro {
+  margin-top: 0.85rem;
+  border: 1px solid var(--borde-oro);
+  border-radius: 14px;
+  background: rgba(5, 13, 26, 0.7);
+  overflow: hidden;
+}
+
+.registro summary {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--oro);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.registro summary::-webkit-details-marker { display: none; }
+
+.registro summary::after {
+  content: "▾";
+  float: right;
+  transition: transform 0.15s ease;
+}
+
+.registro[open] summary::after { transform: rotate(180deg); }
+
+.registro summary:focus-visible {
+  outline: 3px solid var(--oro);
+  outline-offset: -3px;
+}
+
+.registro-vacio {
+  margin: 0;
+  padding: 0 0.9rem 0.75rem;
+  font-size: 0.82rem;
+  color: var(--tenue);
+}
+
+.registro ol {
+  margin: 0;
+  padding: 0 0.9rem 0.75rem;
+  list-style: none;
+  max-height: 168px;
+  overflow-y: auto;
+}
+
+.registro li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+  border-top: 1px solid rgba(232, 181, 63, 0.14);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+}
+
+.registro li:first-child { border-top: none; }
+
+.registro-operacion {
+  color: var(--tenue);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.registro-resultado {
+  flex: none;
+  color: #ffce5c;
+  font-weight: 600;
 }
 
 /* ---------- Adaptaciones ---------- */
