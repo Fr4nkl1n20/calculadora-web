@@ -11,3 +11,9 @@ desktop.ini
 # Dependencias / builds (por si más adelante añades herramientas)
 node_modules/
 dist/
+
+# Python: bytecode generado al ejecutar las pruebas del motor científico
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
