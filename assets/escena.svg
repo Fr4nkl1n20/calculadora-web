@@ -1,241 +1,199 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-labelledby="titulo desc">
-  <title id="titulo">Un león devorando un galeón</title>
-  <desc id="desc">Ilustración original: un león dorado de melena escarlata emerge del mar de noche y muerde un galeón de casco azul marino, partiéndolo en dos.</desc>
+  <title id="titulo">Un pez de circuitos atrapado en una red neuronal</title>
+  <desc id="desc">Ilustración original: en aguas profundas, un pez formado por trazas de circuito impreso queda atrapado en una red de pesca cuyos nudos son nodos luminosos de una red neuronal. Al fondo, ecos de sonar y un pequeño grafo de neuronas.</desc>
 
   <defs>
-    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#04091a"/>
-      <stop offset="0.55" stop-color="#0b1e3d"/>
-      <stop offset="1" stop-color="#14375f"/>
+    <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a2b3e"/>
+      <stop offset="0.45" stop-color="#061a29"/>
+      <stop offset="1" stop-color="#020a12"/>
     </linearGradient>
-    <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#14456f"/>
-      <stop offset="1" stop-color="#04101f"/>
+    <linearGradient id="rayo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5fe6d8" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#5fe6d8" stop-opacity="0"/>
     </linearGradient>
-    <radialGradient id="brillo">
-      <stop offset="0" stop-color="#ffe9a8" stop-opacity="0.5"/>
-      <stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
+    <linearGradient id="cuerpo" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#2694ad"/>
+      <stop offset="0.5" stop-color="#12617a"/>
+      <stop offset="1" stop-color="#0a3546"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfe9ee"/>
+      <stop offset="0.5" stop-color="#7fa5b0"/>
+      <stop offset="1" stop-color="#3d5a66"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop offset="0" stop-color="#5fe6d8" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#5fe6d8" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="casco" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2a6bb0"/>
-      <stop offset="0.45" stop-color="#143a72"/>
-      <stop offset="1" stop-color="#07203f"/>
-    </linearGradient>
-    <linearGradient id="vela" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#bccbdf"/>
-      <stop offset="0.45" stop-color="#eef3fa"/>
-      <stop offset="1" stop-color="#cfdcec"/>
-    </linearGradient>
-    <linearGradient id="pelaje" x1="0" y1="0" x2="0.2" y2="1">
-      <stop offset="0" stop-color="#fbd57e"/>
-      <stop offset="0.55" stop-color="#f0b845"/>
-      <stop offset="1" stop-color="#cf9127"/>
-    </linearGradient>
 
-    <path id="pua" d="M191 102 L205 20 L219 102 Z"/>
-    <path id="pua2" d="M194 118 L205 52 L216 118 Z"/>
+    <!-- La malla: rombos como los de una red de pesca, con un nodo luminoso en
+         cada nudo. Es exactamente la misma figura que un grafo neuronal. -->
+    <pattern id="malla" width="38" height="38" patternUnits="userSpaceOnUse"
+             patternTransform="rotate(45 0 0)">
+      <path d="M19 0 V38 M0 19 H38" stroke="#5fe6d8" stroke-width="1.3"
+            opacity="0.42" fill="none"/>
+      <circle cx="19" cy="19" r="5" fill="#3fd8c8" opacity="0.14"/>
+      <circle cx="19" cy="19" r="2.3" fill="#9ffaee" opacity="0.9"/>
+      <circle cx="0"  cy="0"  r="2.3" fill="#9ffaee" opacity="0.9"/>
+      <circle cx="38" cy="0"  r="2.3" fill="#9ffaee" opacity="0.9"/>
+      <circle cx="0"  cy="38" r="2.3" fill="#9ffaee" opacity="0.9"/>
+      <circle cx="38" cy="38" r="2.3" fill="#9ffaee" opacity="0.9"/>
+    </pattern>
+
+    <!-- retícula tenue de datos al fondo -->
+    <pattern id="reticula" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#4fd9ca" opacity="0.16"/>
+    </pattern>
+
+    <path id="bolsa" d="M287 216
+                        C 296 316, 398 372, 474 354
+                        C 552 336, 588 232, 573 124
+                        C 520 168, 344 200, 287 216 Z"/>
   </defs>
 
-  <!-- ================= CIELO ================= -->
-  <rect width="800" height="400" fill="url(#cielo)"/>
-  <ellipse cx="120" cy="26" rx="230" ry="140" fill="url(#brillo)" opacity="0.32"/>
-  <ellipse cx="700" cy="18" rx="200" ry="120" fill="url(#brillo)" opacity="0.28"/>
-  <circle cx="700" cy="70" r="74" fill="#ffe9a8" opacity="0.09"/>
-  <circle cx="700" cy="70" r="33" fill="#f8efd2"/>
-  <circle cx="688" cy="62" r="7" fill="#e0d3ae" opacity="0.7"/>
-  <circle cx="711" cy="82" r="5" fill="#e0d3ae" opacity="0.55"/>
-  <g fill="#ffffff" opacity="0.75">
-    <circle cx="58" cy="50" r="1.8"/><circle cx="146" cy="24" r="1.4"/>
-    <circle cx="252" cy="58" r="1.6"/><circle cx="336" cy="22" r="1.3"/>
-    <circle cx="446" cy="46" r="1.7"/><circle cx="532" cy="28" r="1.4"/>
-    <circle cx="596" cy="106" r="1.5"/><circle cx="770" cy="54" r="1.8"/>
-    <circle cx="748" cy="148" r="1.3"/><circle cx="92" cy="112" r="1.5"/>
-    <circle cx="616" cy="18" r="1.4"/><circle cx="404" cy="86" r="1.2"/>
+  <!-- ================= FONDO ================= -->
+  <rect width="800" height="400" fill="url(#agua)"/>
+  <rect width="800" height="400" fill="url(#reticula)"/>
+
+  <!-- rayos de luz desde la superficie -->
+  <g>
+    <path d="M120 0 L192 0 L268 400 L172 400 Z" fill="url(#rayo)"/>
+    <path d="M330 0 L372 0 L410 400 L352 400 Z" fill="url(#rayo)" opacity="0.75"/>
+    <path d="M620 0 L690 0 L742 400 L654 400 Z" fill="url(#rayo)" opacity="0.6"/>
   </g>
 
-  <!-- ================= MAR DE FONDO ================= -->
-  <path d="M0 292 C 120 284, 200 300, 320 294 C 460 287, 560 302, 800 290 L800 400 L0 400 Z" fill="url(#mar)"/>
-
-  <!-- ================= MELENA ================= -->
-  <g fill="#a2202c">
-    <use href="#pua" transform="rotate(0 205 205)"/><use href="#pua" transform="rotate(20 205 205)"/>
-    <use href="#pua" transform="rotate(40 205 205)"/><use href="#pua" transform="rotate(60 205 205)"/>
-    <use href="#pua" transform="rotate(80 205 205)"/><use href="#pua" transform="rotate(100 205 205)"/>
-    <use href="#pua" transform="rotate(120 205 205)"/><use href="#pua" transform="rotate(140 205 205)"/>
-    <use href="#pua" transform="rotate(160 205 205)"/><use href="#pua" transform="rotate(180 205 205)"/>
-    <use href="#pua" transform="rotate(200 205 205)"/><use href="#pua" transform="rotate(220 205 205)"/>
-    <use href="#pua" transform="rotate(240 205 205)"/><use href="#pua" transform="rotate(260 205 205)"/>
-    <use href="#pua" transform="rotate(280 205 205)"/><use href="#pua" transform="rotate(300 205 205)"/>
-    <use href="#pua" transform="rotate(320 205 205)"/><use href="#pua" transform="rotate(340 205 205)"/>
+  <!-- ecos de sonar -->
+  <g fill="none" stroke="#3fd8c8" stroke-linecap="round">
+    <path d="M8 372 A 72 72 0 0 1 152 372"   opacity="0.30" stroke-width="1.6"/>
+    <path d="M8 372 A 112 112 0 0 1 232 372" opacity="0.22" stroke-width="1.6"/>
+    <path d="M8 372 A 152 152 0 0 1 312 372" opacity="0.14" stroke-width="1.6"/>
+    <path d="M8 372 A 192 192 0 0 1 392 372" opacity="0.08" stroke-width="1.6"/>
   </g>
-  <g fill="#d9932f">
-    <use href="#pua2" transform="rotate(10 205 205)"/><use href="#pua2" transform="rotate(30 205 205)"/>
-    <use href="#pua2" transform="rotate(50 205 205)"/><use href="#pua2" transform="rotate(70 205 205)"/>
-    <use href="#pua2" transform="rotate(90 205 205)"/><use href="#pua2" transform="rotate(110 205 205)"/>
-    <use href="#pua2" transform="rotate(130 205 205)"/><use href="#pua2" transform="rotate(150 205 205)"/>
-    <use href="#pua2" transform="rotate(170 205 205)"/><use href="#pua2" transform="rotate(190 205 205)"/>
-    <use href="#pua2" transform="rotate(210 205 205)"/><use href="#pua2" transform="rotate(230 205 205)"/>
-    <use href="#pua2" transform="rotate(250 205 205)"/><use href="#pua2" transform="rotate(270 205 205)"/>
-    <use href="#pua2" transform="rotate(290 205 205)"/><use href="#pua2" transform="rotate(310 205 205)"/>
-    <use href="#pua2" transform="rotate(330 205 205)"/><use href="#pua2" transform="rotate(350 205 205)"/>
-  </g>
-  <circle cx="205" cy="205" r="105" fill="#9c6417"/>
-  <g fill="none" stroke="#7d4d10" stroke-width="3" opacity="0.55" stroke-linecap="round">
-    <path d="M128 168 C 156 178, 158 208, 132 232"/>
-    <path d="M158 128 C 182 146, 184 176, 162 198"/>
-    <path d="M150 252 C 178 246, 196 258, 200 280"/>
-  </g>
+  <circle cx="80" cy="372" r="5" fill="#9ffaee"/>
 
-  <!-- ================= OREJA ================= -->
-  <path d="M196 120 C 196 84, 214 62, 244 60 C 250 88, 242 112, 226 130 Z" fill="url(#pelaje)"/>
-  <path d="M208 116 C 208 92, 218 78, 236 74 C 240 94, 234 108, 224 120 Z" fill="#a2202c" opacity="0.7"/>
-
-  <!-- ================= CABEZA (mandíbula superior) ================= -->
-  <path d="M158 140
-           C 206 110, 274 114, 322 142
-           C 354 160, 386 158, 414 148
-           C 434 141, 450 148, 454 162
-           L 450 178
-           C 444 192, 426 198, 406 195
-           L 300 236
-           C 260 250, 214 244, 188 224
-           C 166 206, 154 172, 158 140 Z" fill="url(#pelaje)"/>
-  <path d="M188 224 C 214 244, 260 250, 300 236 L 344 219 C 300 236, 226 248, 188 224 Z" fill="#b87f1e" opacity="0.5"/>
-
-  <!-- hocico -->
-  <ellipse cx="404" cy="172" rx="46" ry="30" fill="#fce6b0" opacity="0.55"/>
-  <path d="M424 148 C 442 141, 456 149, 456 164 L 450 178 C 440 172, 430 162, 424 148 Z" fill="#4a1015"/>
-  <path d="M432 152 C 442 148, 450 152, 450 161 Z" fill="#8a2830"/>
-  <g fill="#b8802a" opacity="0.6">
-    <circle cx="398" cy="182" r="2.6"/><circle cx="414" cy="180" r="2.6"/><circle cx="406" cy="190" r="2.4"/>
-    <circle cx="382" cy="188" r="2.2"/><circle cx="392" cy="196" r="2.2"/>
-  </g>
-  <g stroke="#f7dfa8" stroke-width="1.6" opacity="0.6" fill="none">
-    <path d="M400 184 C 430 178, 468 172, 498 176"/>
-    <path d="M400 190 C 430 190, 466 194, 494 202"/>
-  </g>
-
-  <!-- ceja y ojo -->
-  <path d="M276 136 C 306 132, 336 140, 358 154 L 350 166 C 328 154, 300 148, 274 150 Z" fill="#7d4e10"/>
-  <path d="M288 168 C 306 152, 336 156, 354 174 C 332 188, 302 186, 288 168 Z" fill="#fff8e7"/>
-  <ellipse cx="328" cy="170" rx="9" ry="11" fill="#16202f"/>
-  <circle cx="332" cy="165" r="3" fill="#ffffff"/>
-
-  <!-- ================= INTERIOR DE LAS FAUCES ================= -->
-  <path d="M300 236 L 450 178 L 466 240 L 438 302 Z" fill="#5c101a"/>
-  <path d="M322 250 C 372 244, 416 258, 440 284 C 396 300, 340 284, 322 250 Z" fill="#c0394f" opacity="0.85"/>
-  <!-- encías -->
-  <path d="M300 236 L 450 178 L 456 194 L 306 252 Z" fill="#7d1420"/>
-  <path d="M300 236 L 438 302 L 440 284 L 302 220 Z" fill="#7d1420"/>
-
-  <!-- ================= EL GALEÓN ================= -->
-  <g transform="translate(520 232) rotate(-12)">
-    <!-- jarcias -->
-    <g stroke="#e8dcc4" stroke-width="1.4" opacity="0.45" fill="none">
-      <path d="M60 -212 L 176 -50"/><path d="M60 -212 L -46 -36"/>
-      <path d="M-40 -184 L 60 -40"/><path d="M-40 -184 L -150 -30"/>
+  <!-- grafo neuronal al fondo -->
+  <g opacity="0.5">
+    <g stroke="#3fd8c8" stroke-width="1.1" opacity="0.55" fill="none">
+      <path d="M60 92 L128 62 M60 92 L128 118 M60 92 L128 168"/>
+      <path d="M128 62 L200 88 M128 118 L200 88 M128 168 L200 88"/>
+      <path d="M128 62 L200 148 M128 118 L200 148 M128 168 L200 148"/>
     </g>
-
-    <!-- palo mayor -->
-    <rect x="56" y="-216" width="9" height="192" rx="4" fill="#7a5230"/>
-    <path d="M66 -214 L 124 -203 L 66 -192 Z" fill="#a2202c"/>
-    <path d="M64 -206 C 134 -192, 134 -154, 64 -142 Z" fill="url(#vela)"/>
-    <path d="M64 -198 C 112 -188, 118 -164, 64 -154" fill="none" stroke="#9db2cc" stroke-width="2" opacity="0.55"/>
-    <path d="M64 -134 C 148 -114, 148 -64, 64 -44 Z" fill="url(#vela)"/>
-    <path d="M64 -118 C 122 -104, 128 -76, 64 -62" fill="none" stroke="#9db2cc" stroke-width="2" opacity="0.55"/>
-    <rect x="18" y="-216" width="86" height="7" rx="3" fill="#6b4626"/>
-    <rect x="24" y="-140" width="80" height="7" rx="3" fill="#6b4626"/>
-
-    <!-- trinquete -->
-    <rect x="-44" y="-188" width="8" height="166" rx="4" fill="#7a5230"/>
-    <path d="M-36 -180 C 28 -168, 28 -130, -36 -120 Z" fill="url(#vela)"/>
-    <path d="M-36 -112 C 36 -98, 36 -52, -36 -38 Z" fill="url(#vela)"/>
-    <rect x="-74" y="-188" width="68" height="6" rx="3" fill="#6b4626"/>
-    <rect x="-70" y="-112" width="62" height="6" rx="3" fill="#6b4626"/>
-
-    <!-- casco -->
-    <path d="M-215 -26 L 180 -46 C 192 -4, 158 46, 104 56 L -122 56 C -176 48, -212 12, -215 -26 Z" fill="url(#casco)"/>
-    <path d="M-215 -26 L 180 -46" stroke="#e8c15a" stroke-width="6" fill="none"/>
-    <path d="M-206 6 L 176 -14" stroke="#e8c15a" stroke-width="3.5" fill="none" opacity="0.8"/>
-    <path d="M-196 34 L 150 16" stroke="#0a2a54" stroke-width="6" fill="none" opacity="0.7"/>
-    <g fill="#04122b">
-      <rect x="-160" y="6" width="18" height="16" rx="3"/><rect x="-112" y="3" width="18" height="16" rx="3"/>
-      <rect x="-64" y="0" width="18" height="16" rx="3"/><rect x="-16" y="-3" width="18" height="16" rx="3"/>
-      <rect x="32" y="-6" width="18" height="16" rx="3"/><rect x="80" y="-9" width="18" height="16" rx="3"/>
-    </g>
-    <!-- proa levantada -->
-    <path d="M180 -46 L 220 -66 L 198 -30 Z" fill="#e8c15a"/>
-    <path d="M186 -48 L 214 -62 L 200 -40 Z" fill="#f6dd9c"/>
-
-    <!-- popa destrozada dentro de las fauces -->
-    <path d="M-215 -26 L -176 -8 L -200 10 L -162 24 L -192 38 L -122 56 L -215 56 Z" fill="#04122b"/>
-    <g stroke="#7d1420" stroke-width="3.5" fill="none" opacity="0.9" stroke-linecap="round">
-      <path d="M-172 -18 L -144 4 L -168 20 L -134 40"/>
-      <path d="M-118 -24 L -96 -2 L -120 14 L -92 30"/>
+    <g fill="#9ffaee">
+      <circle cx="60" cy="92" r="4"/><circle cx="128" cy="62" r="3.4"/>
+      <circle cx="128" cy="118" r="3.4"/><circle cx="128" cy="168" r="3.4"/>
+      <circle cx="200" cy="88" r="4"/><circle cx="200" cy="148" r="4"/>
     </g>
   </g>
 
-  <!-- ================= ASTILLAS Y ESPUMA ================= -->
-  <g fill="#96632f" stroke="#4e2c11" stroke-width="1.6">
-    <rect x="330" y="120" width="36" height="9" rx="3" transform="rotate(-42 348 124)"/>
-    <rect x="392" y="92" width="30" height="8" rx="3" transform="rotate(22 407 96)"/>
-    <rect x="452" y="104" width="26" height="8" rx="3" transform="rotate(-18 465 108)"/>
-    <rect x="300" y="298" width="32" height="9" rx="3" transform="rotate(54 316 302)"/>
-    <rect x="366" y="322" width="28" height="8" rx="3" transform="rotate(-28 380 326)"/>
+  <!-- partículas de datos -->
+  <g fill="#7ff0e2">
+    <rect x="252" y="60"  width="5" height="5" opacity="0.7"/>
+    <rect x="308" y="132" width="4" height="4" opacity="0.5"/>
+    <rect x="662" y="96"  width="5" height="5" opacity="0.6"/>
+    <rect x="716" y="212" width="4" height="4" opacity="0.45"/>
+    <rect x="150" y="248" width="4" height="4" opacity="0.5"/>
+    <rect x="86"  y="196" width="5" height="5" opacity="0.4"/>
+    <rect x="742" y="318" width="4" height="4" opacity="0.4"/>
   </g>
-  <g fill="#dcebfa" opacity="0.72">
-    <circle cx="352" cy="308" r="14"/><circle cx="382" cy="320" r="10"/>
-    <circle cx="322" cy="316" r="10"/><circle cx="406" cy="312" r="7"/>
-    <circle cx="298" cy="300" r="7"/>
-  </g>
-
-  <!-- ================= MANDÍBULA INFERIOR Y COLMILLOS ================= -->
-  <path d="M246 228
-           C 240 260, 256 282, 288 294
-           L 398 324
-           C 424 331, 444 320, 438 302
-           L 300 236
-           C 282 226, 258 222, 246 228 Z" fill="url(#pelaje)"/>
-  <path d="M264 264 C 294 290, 346 308, 402 320" fill="none" stroke="#b8802a" stroke-width="3.5" opacity="0.45"/>
-  <path d="M398 324 C 424 331, 444 320, 438 302 L 422 295 C 428 314, 416 321, 394 315 Z" fill="#c8892c" opacity="0.55"/>
-
-  <g fill="#fffaf0" stroke="#c9b48c" stroke-width="1.2" stroke-linejoin="round">
-    <!-- colmillos superiores -->
-    <path d="M336.3 221.3 L 358.5 212.3 L 365.4 261.3 Z"/>
-    <path d="M362.2 210.8 L 377.0 204.8 L 380.9 235.6 Z" opacity="0.96"/>
-    <path d="M380.7 203.3 L 402.9 194.3 L 409.8 243.3 Z"/>
-    <path d="M411.0 191.0 L 425.8 185.0 L 428.9 214.0 Z" opacity="0.96"/>
-    <!-- colmillos inferiores -->
-    <path d="M338.4 254.4 L 358.2 263.8 L 368.1 217.6 Z"/>
-    <path d="M362.7 266.0 L 375.3 272.0 L 381.9 241.9 Z" opacity="0.96"/>
-    <path d="M379.8 274.2 L 399.6 283.6 L 409.5 237.4 Z"/>
-    <path d="M404.1 285.8 L 416.7 291.8 L 422.5 263.5 Z" opacity="0.96"/>
+  <g fill="none" stroke="#7ff0e2" opacity="0.35" stroke-width="1.4">
+    <circle cx="214" cy="318" r="7"/><circle cx="238" cy="292" r="4.5"/>
+    <circle cx="600" cy="70" r="6"/><circle cx="624" cy="48" r="4"/>
+    <circle cx="120" cy="150" r="5"/>
   </g>
 
-  <!-- ================= MAR EN PRIMER PLANO ================= -->
-  <path d="M0 322 C 90 308, 170 332, 258 324 C 350 316, 420 338, 520 328 C 620 318, 700 338, 800 324 L800 400 L0 400 Z" fill="#0a2c4f"/>
-  <path d="M0 352 C 110 338, 200 362, 300 354 C 410 345, 500 366, 610 356 C 700 348, 750 362, 800 354 L800 400 L0 400 Z" fill="#061c34"/>
-  <g fill="none" stroke="#7fb3e8" stroke-width="2.6" opacity="0.45" stroke-linecap="round">
-    <path d="M44 338 C 74 332, 102 342, 132 336"/>
-    <path d="M298 368 C 328 362, 356 372, 386 366"/>
-    <path d="M566 342 C 596 336, 624 346, 654 340"/>
-    <path d="M674 376 C 702 370, 728 380, 756 374"/>
-    <path d="M148 382 C 176 376, 202 386, 230 380"/>
-  </g>
-  <g fill="#dcebfa" opacity="0.5">
-    <circle cx="186" cy="322" r="11"/><circle cx="214" cy="330" r="7"/><circle cx="158" cy="330" r="6"/>
-    <circle cx="248" cy="326" r="9"/><circle cx="126" cy="326" r="8"/><circle cx="282" cy="332" r="6"/>
-    <circle cx="100" cy="332" r="5"/><circle cx="266" cy="318" r="5"/>
+  <!-- ================= LA RED (interior) ================= -->
+  <!-- El fondo de la bolsa va antes que el pez y la malla después: así el pez
+       se ve dentro de la red, con los hilos cruzándole por delante. -->
+  <use href="#bolsa" fill="#052330" opacity="0.75"/>
+
+  <!-- ================= EL PEZ DE CIRCUITOS ================= -->
+  <ellipse cx="438" cy="250" rx="152" ry="88" fill="url(#halo)"/>
+
+  <g transform="translate(438 250) rotate(-9) scale(0.94)">
+    <!-- aletas -->
+    <path d="M-14 -42 L 22 -84 L 52 -38 Z" fill="#0d4a60" stroke="#3fd8c8" stroke-width="2"/>
+    <path d="M6 26 L -4 66 L 44 40 Z" fill="#0d4a60" stroke="#3fd8c8" stroke-width="2"/>
+    <path d="M-96 0 L -152 -44 L -132 0 L -152 44 Z" fill="#0d4a60" stroke="#3fd8c8" stroke-width="2.4"/>
+
+    <!-- cuerpo -->
+    <path d="M-96 0 C -70 -44, 40 -52, 88 -10 C 93 -5, 93 5, 88 10
+             C 40 52, -70 44, -96 0 Z"
+          fill="url(#cuerpo)" stroke="#8ff6e8" stroke-width="3.2"/>
+
+    <!-- trazas de circuito impreso -->
+    <g fill="none" stroke="#4fe4d2" stroke-width="2" opacity="0.9"
+       stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-72 -6 H -46 V -24 H -8 V -6 H 26"/>
+      <path d="M-60 14 H -22 V 30 H 20 V 12 H 52"/>
+      <path d="M-16 -6 V 12"/>
+      <path d="M26 -6 V -26 H 58"/>
+      <path d="M52 12 V 28"/>
+    </g>
+    <!-- Las vías cálidas son el único color no cian de la escena: separan al
+         pez de la red y dan un punto de atención. -->
+    <g fill="#9ffaee">
+      <rect x="-50" y="-28" width="8" height="8" rx="1.5"/>
+      <rect x="22"  y="-10" width="8" height="8" rx="1.5"/>
+      <rect x="16"  y="8"   width="8" height="8" rx="1.5"/>
+      <rect x="-26" y="26"  width="8" height="8" rx="1.5"/>
+    </g>
+    <g fill="#ffbe5c">
+      <rect x="-12" y="-10" width="8" height="8" rx="1.5"/>
+      <rect x="54"  y="-30" width="8" height="8" rx="1.5"/>
+      <rect x="48"  y="24"  width="8" height="8" rx="1.5"/>
+    </g>
+
+    <!-- «chip» central -->
+    <rect x="-34" y="-14" width="30" height="26" rx="3" fill="#062533"
+          stroke="#4fe4d2" stroke-width="2"/>
+    <g stroke="#4fe4d2" stroke-width="1.6" opacity="0.8">
+      <path d="M-34 -8 H -42 M-34 0 H -42 M-34 8 H -42"/>
+      <path d="M-4 -8 H 4 M-4 0 H 4 M-4 8 H 4"/>
+    </g>
+
+    <!-- branquia -->
+    <path d="M52 -22 C 62 -8, 62 8, 52 22" fill="none" stroke="#4fe4d2"
+          stroke-width="2.2" opacity="0.8"/>
+
+    <!-- ojo -->
+    <circle cx="70" cy="-10" r="14" fill="#ffbe5c" opacity="0.18"/>
+    <circle cx="70" cy="-10" r="12" fill="#041820" stroke="#8ff6e8" stroke-width="2.6"/>
+    <circle cx="70" cy="-10" r="5.5" fill="#ffbe5c"/>
+    <circle cx="73" cy="-13" r="2" fill="#ffffff"/>
+
+    <!-- boca -->
+    <path d="M90 8 C 84 14, 76 16, 70 15" fill="none" stroke="#4fe4d2" stroke-width="2.2"/>
   </g>
 
-  <!-- restos del naufragio flotando: mástil partido con la vela rasgada -->
-  <g transform="translate(104 352) rotate(-7)">
-    <path d="M6 -46 C 68 -34, 64 -6, 6 4 Z" fill="#cfdcec" opacity="0.9"/>
-    <path d="M6 4 L 34 12 L 16 22 L 40 30 L 6 32 Z" fill="#aebfd4" opacity="0.85"/>
-    <rect x="-6" y="-54" width="11" height="94" rx="5" fill="#7a5230"/>
-    <path d="M-6 34 L 5 34 L 2 46 L -2 38 Z" fill="#5a3418"/>
+  <!-- burbujas de datos -->
+  <g fill="none" stroke="#9ffaee" stroke-width="1.4" opacity="0.6">
+    <circle cx="536" cy="212" r="6"/><circle cx="560" cy="188" r="4"/>
+    <circle cx="580" cy="204" r="3"/>
   </g>
-  <g fill="none" stroke="#7fb3e8" stroke-width="2.4" opacity="0.5" stroke-linecap="round">
-    <path d="M62 372 C 96 366, 130 378, 168 372"/>
+
+  <!-- ================= LA RED (malla, por delante del pez) ================= -->
+  <use href="#bolsa" fill="url(#malla)"/>
+  <use href="#bolsa" fill="none" stroke="#3fd8c8" stroke-width="2" opacity="0.55"/>
+
+  <!-- aro de la red -->
+  <g transform="rotate(-18 430 170)">
+    <ellipse cx="430" cy="170" rx="150" ry="48" fill="none"
+             stroke="url(#metal)" stroke-width="9" stroke-linecap="round"/>
+    <ellipse cx="430" cy="170" rx="150" ry="48" fill="none"
+             stroke="#9ffaee" stroke-width="2" opacity="0.7"/>
   </g>
+
+  <!-- mango, con una traza luminosa recorriéndolo -->
+  <g transform="rotate(-18 430 170)">
+    <rect x="120" y="160" width="168" height="14" rx="7" fill="url(#metal)"/>
+    <rect x="126" y="164" width="150" height="3" rx="1.5" fill="#9ffaee" opacity="0.75"/>
+    <circle cx="128" cy="167" r="10" fill="#0d4a60" stroke="#9ffaee" stroke-width="2"/>
+    <circle cx="128" cy="167" r="3.5" fill="#9ffaee"/>
+  </g>
+
+  <!-- sedal descendiendo desde la superficie -->
+  <path d="M300 0 C 318 54, 302 104, 286 152" fill="none"
+        stroke="#9ffaee" stroke-width="1.6" opacity="0.55"/>
+  <circle cx="286" cy="152" r="4" fill="#9ffaee" opacity="0.8"/>
 </svg>

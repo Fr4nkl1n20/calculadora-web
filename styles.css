@@ -1,15 +1,19 @@
-:root {
-  --grosor-bate: 42px;
+/* Calculadora básica — tema de pesca con tecnología: aguas profundas, malla de
+   red que es a la vez grafo neuronal, y cañas enmarcando el aparato. */
 
-  --noche: #04091a;
-  --panel: rgba(8, 19, 36, 0.92);
-  --crema: #f4efe4;
-  --marino: #1d3557;
-  --escarlata: #c1272d;
-  --oro: #e8b53f;
-  --texto-oscuro: #131c2b;
-  --tenue: #9db2cc;
-  --borde-oro: rgba(232, 181, 63, 0.3);
+:root {
+  --grosor-cana: 42px;
+
+  --abismo: #030d15;
+  --panel: rgba(5, 27, 38, 0.90);
+  --hielo: #e8f6f6;
+  --profundo: #0d3a4c;
+  --cian-tecla: #0e7a74;
+  --neon: #5fe6d8;
+  --ambar: #ffbe5c;
+  --texto-oscuro: #06202b;
+  --tenue: #86b6c0;
+  --borde-neon: rgba(95, 230, 216, 0.28);
 }
 
 * {
@@ -21,16 +25,16 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: calc(var(--grosor-bate) + 1rem) 1.25rem;
+  padding: calc(var(--grosor-cana) + 1rem) 1.25rem;
   background:
-    linear-gradient(rgba(4, 9, 26, 0.84), rgba(4, 9, 26, 0.94)),
+    linear-gradient(rgba(3, 13, 21, 0.82), rgba(3, 13, 21, 0.95)),
     url("assets/escena.svg") center / cover no-repeat,
-    var(--noche);
-  color: var(--crema);
+    var(--abismo);
+  color: var(--hielo);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
-/* ---------- Marco de bates ---------- */
+/* ---------- Marco de cañas ---------- */
 
 .mesa {
   position: relative;
@@ -39,41 +43,41 @@ body {
 
 .marco {
   position: absolute;
-  inset: calc(var(--grosor-bate) * -0.62);
+  inset: calc(var(--grosor-cana) * -0.62);
   z-index: 3;
   pointer-events: none;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7));
 }
 
-.bate {
+.cana {
   position: absolute;
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
-.bate-arriba,
-.bate-abajo {
+.cana-arriba,
+.cana-abajo {
   left: 0;
   right: 0;
-  height: var(--grosor-bate);
-  background-image: url("assets/bate-h.svg");
+  height: var(--grosor-cana);
+  background-image: url("assets/cana-h.svg");
   z-index: 2;
 }
 
-.bate-arriba { top: 0; }
-.bate-abajo  { bottom: 0; transform: scale(-1); }
+.cana-arriba { top: 0; }
+.cana-abajo  { bottom: 0; transform: scale(-1); }
 
-.bate-izquierda,
-.bate-derecha {
-  top: calc(var(--grosor-bate) * 0.55);
-  bottom: calc(var(--grosor-bate) * 0.55);
-  width: var(--grosor-bate);
-  background-image: url("assets/bate-v.svg");
+.cana-izquierda,
+.cana-derecha {
+  top: calc(var(--grosor-cana) * 0.55);
+  bottom: calc(var(--grosor-cana) * 0.55);
+  width: var(--grosor-cana);
+  background-image: url("assets/cana-v.svg");
   z-index: 1;
 }
 
-.bate-izquierda { left: 0; }
-.bate-derecha   { right: 0; transform: scale(-1); }
+.cana-izquierda { left: 0; }
+.cana-derecha   { right: 0; transform: scale(-1); }
 
 /* ---------- Cuerpo de la calculadora ---------- */
 
@@ -81,10 +85,12 @@ body {
   position: relative;
   z-index: 1;
   background: var(--panel);
-  border: 1px solid var(--borde-oro);
+  border: 1px solid var(--borde-neon);
   border-radius: 20px;
   padding: 1rem;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65);
+  box-shadow:
+    0 24px 55px rgba(0, 0, 0, 0.7),
+    inset 0 0 60px rgba(95, 230, 216, 0.04);
   backdrop-filter: blur(6px);
 }
 
@@ -92,32 +98,47 @@ body {
   margin: 0;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid var(--borde-oro);
+  border: 1px solid var(--borde-neon);
 }
 
-/* Recortada en altura para dejar sitio al teclado ampliado y al historial. */
+/* Recortada en altura para dejar sitio al teclado y al historial. */
 .escena img {
   display: block;
   width: 100%;
   height: 112px;
   object-fit: cover;
-  object-position: 50% 46%;
+  object-position: 55% 50%;
 }
 
-/* ---------- Pantalla tipo marcador ---------- */
+/* ---------- Pantalla tipo sonar ---------- */
 
 .pantalla {
+  position: relative;
   margin-top: 0.85rem;
   padding: 0.75rem 0.9rem 0.9rem;
-  background: #050d1a;
-  border: 1px solid var(--borde-oro);
+  background: #041720;
+  border: 1px solid var(--borde-neon);
   border-radius: 14px;
-  box-shadow: inset 0 2px 16px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 18px rgba(0, 0, 0, 0.85);
   text-align: right;
   overflow: hidden;
 }
 
+/* Líneas de barrido, como la pantalla de un sonar */
+.pantalla::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(95, 230, 216, 0.05) 0 1px,
+    transparent 1px 4px
+  );
+}
+
 .linea-superior {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -128,8 +149,8 @@ body {
   flex: none;
   padding: 0.05rem 0.4rem;
   border-radius: 5px;
-  background: var(--escarlata);
-  color: #fff;
+  background: var(--ambar);
+  color: var(--texto-oscuro);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -147,12 +168,13 @@ body {
 }
 
 .resultado {
+  position: relative;
   font-size: clamp(2rem, 11vw, 2.75rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  color: #ffce5c;
-  text-shadow: 0 0 18px rgba(255, 190, 60, 0.35);
+  color: #8ff6e8;
+  text-shadow: 0 0 22px rgba(95, 230, 216, 0.4);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   overflow-x: auto;
@@ -183,55 +205,55 @@ body {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--texto-oscuro);
-  background: var(--crema);
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.45);
+  background: var(--hielo);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
   cursor: pointer;
   user-select: none;
   transition: transform 0.06s ease, filter 0.12s ease;
 }
 
 .tecla:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.12);
 }
 
 .tecla:active,
 .tecla.activa {
   transform: translateY(3px);
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.55);
 }
 
 .tecla:focus-visible {
-  outline: 3px solid var(--oro);
+  outline: 3px solid var(--neon);
   outline-offset: 2px;
 }
 
 .tecla.funcion {
-  background: var(--marino);
-  color: var(--crema);
+  background: var(--profundo);
+  color: var(--hielo);
   font-size: 1.1rem;
 }
 
 .tecla.operador {
-  background: var(--escarlata);
+  background: var(--cian-tecla);
   color: #fff;
   font-size: 1.4rem;
 }
 
 .tecla.igual {
-  background: var(--oro);
-  color: #2a1c05;
+  background: var(--ambar);
+  color: var(--texto-oscuro);
   font-size: 1.4rem;
 }
 
 .tecla.memoria {
-  background: #142742;
-  color: var(--oro);
+  background: #0a2b38;
+  color: var(--neon);
   font-size: 0.95rem;
   letter-spacing: 0.02em;
 }
 
 .tecla.operador.seleccionado {
-  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.85), 0 3px 0 rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.9), 0 3px 0 rgba(0, 0, 0, 0.55);
 }
 
 /* ---------- Enlace a la calculadora científica ---------- */
@@ -240,24 +262,24 @@ body {
   display: block;
   margin-top: 0.85rem;
   padding: 0.6rem 0.9rem;
-  border: 1px solid var(--borde-oro);
+  border: 1px solid var(--borde-neon);
   border-radius: 14px;
-  background: rgba(29, 53, 87, 0.55);
-  color: var(--crema);
+  background: rgba(13, 58, 76, 0.6);
+  color: var(--hielo);
   text-decoration: none;
   transition: border-color 0.12s ease, background 0.12s ease;
 }
 
 .enlace-cientifica:hover {
-  border-color: var(--oro);
-  background: rgba(29, 53, 87, 0.85);
+  border-color: var(--neon);
+  background: rgba(13, 58, 76, 0.9);
 }
 
 .enlace-cientifica span {
   display: block;
   font-size: 0.92rem;
   font-weight: 600;
-  color: var(--oro);
+  color: var(--neon);
 }
 
 .enlace-cientifica small {
@@ -268,7 +290,7 @@ body {
 }
 
 .enlace-cientifica:focus-visible {
-  outline: 3px solid var(--oro);
+  outline: 3px solid var(--neon);
   outline-offset: 2px;
 }
 
@@ -276,9 +298,9 @@ body {
 
 .registro {
   margin-top: 0.85rem;
-  border: 1px solid var(--borde-oro);
+  border: 1px solid var(--borde-neon);
   border-radius: 14px;
-  background: rgba(5, 13, 26, 0.7);
+  background: rgba(4, 23, 32, 0.7);
   overflow: hidden;
 }
 
@@ -286,7 +308,7 @@ body {
   padding: 0.6rem 0.9rem;
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--oro);
+  color: var(--neon);
   cursor: pointer;
   user-select: none;
   list-style: none;
@@ -303,7 +325,7 @@ body {
 .registro[open] summary::after { transform: rotate(180deg); }
 
 .registro summary:focus-visible {
-  outline: 3px solid var(--oro);
+  outline: 3px solid var(--neon);
   outline-offset: -3px;
 }
 
@@ -327,7 +349,7 @@ body {
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.35rem 0;
-  border-top: 1px solid rgba(232, 181, 63, 0.14);
+  border-top: 1px solid rgba(95, 230, 216, 0.14);
   font-variant-numeric: tabular-nums;
   font-size: 0.85rem;
 }
@@ -343,14 +365,14 @@ body {
 
 .registro-resultado {
   flex: none;
-  color: #ffce5c;
+  color: #8ff6e8;
   font-weight: 600;
 }
 
 /* ---------- Adaptaciones ---------- */
 
 @media (max-width: 420px) {
-  :root { --grosor-bate: 30px; }
+  :root { --grosor-cana: 30px; }
   .calculadora { padding: 0.8rem; }
   .teclado { gap: 0.45rem; }
 }

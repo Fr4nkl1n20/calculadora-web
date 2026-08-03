@@ -2,7 +2,7 @@
 //
 // Al cambiar cualquier archivo hay que subir VERSION, si no los navegadores
 // seguirán sirviendo la copia antigua desde la caché.
-const VERSION = 'calculadora-v2';
+const VERSION = 'calculadora-v3';
 
 const RECURSOS = [
   './',
@@ -12,8 +12,8 @@ const RECURSOS = [
   './app.js',
   './manifest.webmanifest',
   './assets/escena.svg',
-  './assets/bate-h.svg',
-  './assets/bate-v.svg',
+  './assets/cana-h.svg',
+  './assets/cana-v.svg',
   './assets/icono.svg',
   './assets/icono-192.png',
   './assets/icono-512.png',

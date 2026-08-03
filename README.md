@@ -6,7 +6,7 @@ Dos calculadoras en el mismo sitio, sin dependencias ni build:
 
 | | Motor | Enlace |
 | --- | --- | --- |
-| **Básica**, con temática de béisbol | JavaScript | https://fr4nkl1n20.github.io/calculadora-web/ |
+| **Básica**, con temática de pesca y tecnología | JavaScript | https://fr4nkl1n20.github.io/calculadora-web/ |
 | **Científica**, con todo lo de un modelo fx | Python sobre Pyodide | https://fr4nkl1n20.github.io/calculadora-web/cientifica/ |
 
 La científica está documentada aparte en [`cientifica/README.md`](cientifica/README.md):
@@ -79,11 +79,19 @@ ocultar los artefactos de coma flotante (`0,1 + 0,2` da `0,3`).
 
 ## Diseño
 
-- Ilustración de cabecera: un león devorando un galeón, dibujada a mano en SVG.
-- Marco formado por cuatro bates de béisbol, también en SVG.
-- Pantalla estilo marcador de estadio, con dígitos ámbar sobre fondo oscuro.
-- Teclas por función: crema los dígitos, azul marino las funciones, escarlata
-  los operadores, dorado el igual y azul con texto dorado la memoria.
+Tema de pesca con tecnología, apoyado en una analogía visual: **una red de
+pesca y un grafo neuronal son la misma figura** — nudos unidos por hilos. La
+malla de la ilustración es literalmente las dos cosas a la vez.
+
+- Ilustración de cabecera: un pez formado por trazas de circuito impreso,
+  atrapado en una red cuyos nudos son nodos luminosos. Dibujada a mano en SVG.
+- Marco formado por cuatro cañas de pescar, con empuñadura de corcho,
+  portacarrete con testigo encendido y una traza luminosa recorriendo el tramo.
+- Pantalla estilo sonar: dígitos cian sobre fondo oscuro, con líneas de barrido.
+- Teclas por función: hielo los dígitos, azul profundo las funciones, verde
+  azulado los operadores, ámbar el igual y cian sobre azul la memoria.
+- El único color cálido de la escena es el ojo del pez y sus vías; sirve para
+  separarlo del cian de la red y dar un punto de atención.
 
 Todo el arte es vectorial y original, así que escala sin perder nitidez.
 
@@ -100,8 +108,8 @@ Todo el arte es vectorial y original, así que escala sin perder nitidez.
 | `pruebas/casos.js` | Los 63 casos, compartidos por ambos ejecutores |
 | `pruebas/calculadora.test.js` | Ejecutor de Node |
 | `pruebas/index.html` | Ejecutor de navegador |
-| `assets/escena.svg` | Ilustración del león devorando el galeón |
-| `assets/bate-h.svg`, `assets/bate-v.svg` | Bates del marco |
+| `assets/escena.svg` | Ilustración del pez de circuitos en la red neuronal |
+| `assets/cana-h.svg`, `assets/cana-v.svg` | Cañas del marco |
 | `assets/icono.svg`, `assets/icono-*.png` | Iconos de la aplicación |
 
 `calculadora.js` está separado de `app.js` a propósito: al no tocar el DOM,
