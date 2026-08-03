@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Motor en el navegador</title>
+<style>body{background:#0b0f18;color:#e7ecf5;font:14px ui-monospace,Consolas,monospace;padding:1.5rem}
+.pasa{color:#6ee7a0}.falla{color:#ff8f96}h1{font-size:1.1rem}p{color:#8f9cb3}</style>
+</head>
+<body>
+<h1 id="titulo">Ejecutando…</h1>
+<p>Comprueba que motor.py funciona igual dentro de Pyodide que en CPython.
+   Necesita servidor web: <code>python -m http.server</code> desde la raíz del proyecto.</p>
+<pre id="salida"></pre>
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.3/full/pyodide.js"></script>
+<script>
+(async () => {
+  const salida = document.getElementById('salida');
+  const linea = (t, ok) => {
+    const d = document.createElement('div');
+    if (ok !== undefined) d.className = ok ? 'pasa' : 'falla';
+    d.textContent = t;
+    salida.append(d);
+  };
+
+  let fallos = 0;
+  try {
+    const py = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v314.0.3/full/' });
+    linea('Pyodide ' + py.version + ' cargado');
+
+    const codigo = await (await fetch('../motor.py')).text();
+    py.runPython(codigo);
+    const ejecutar = py.globals.get('ejecutar');
+    linea('Python ' + py.runPython('import sys; ".".join(map(str, sys.version_info[:3]))'));
+
+    const llamar = (p) => JSON.parse(ejecutar(JSON.stringify(p)));
+
+    const casos = [
+      ['aritmética',        { cmd: 'evaluar', expr: '2+3*4' },   '14'],
+      ['exactitud',         { cmd: 'evaluar', expr: '0.1+0.2' }, '3/10'],
+      ['implícita',         { cmd: 'evaluar', expr: '3(4+5)' },  '27'],
+      ['trigonometría DEG', { cmd: 'evaluar', expr: 'sin(30)' }, '0.5'],
+      ['raíz exacta',       { cmd: 'evaluar', expr: '√9' },      '3'],
+      ['complejo',          { cmd: 'evaluar', expr: '√-4' },     '2i'],
+      ['factorial',         { cmd: 'evaluar', expr: '5!' },      '120'],
+      ['porcentaje',        { cmd: 'evaluar', expr: '200+10%' }, '220'],
+      ['potencia negativa', { cmd: 'evaluar', expr: '2^-3' },    '1/8'],
+      ['Ans',               { cmd: 'evaluar', expr: 'Ans+1' },   '9/8'],
+      ['error controlado',  { cmd: 'evaluar', expr: '1/0' },     null],
+    ];
+
+    for (const [nombre, peticion, esperado] of casos) {
+      const r = llamar(peticion);
+      const ok = esperado === null ? r.ok === false : (r.ok && r.principal === esperado);
+      const detalle = r.ok ? r.principal : r.error;
+      if (!ok) fallos++;
+      linea(`${ok ? 'PASA ' : 'FALLA'}  ${nombre.padEnd(20)} -> ${detalle}`, ok);
+    }
+
+    const pol = llamar({ cmd: 'polinomio', coeficientes: [1, -3, 2] });
+    const okPol = pol.ok && pol.raices.join(',') === '1,2';
+    if (!okPol) fallos++;
+    linea(`${okPol ? 'PASA ' : 'FALLA'}  polinomio            -> ${pol.raices}`, okPol);
+
+    const est = llamar({ cmd: 'estadistica', tipo: '1var', datos: [2, 4, 4, 4, 5, 5, 7, 9] });
+    const okEst = est.ok && Math.abs(est.resultados['x̄'] - 5) < 1e-9;
+    if (!okEst) fallos++;
+    linea(`${okEst ? 'PASA ' : 'FALLA'}  estadística          -> media ${est.resultados['x̄']}`, okEst);
+
+    const der = llamar({ cmd: 'derivada', expr: 'X^3', punto: 2 });
+    const okDer = der.ok && Math.abs(Number(der.principal) - 12) < 1e-4;
+    if (!okDer) fallos++;
+    linea(`${okDer ? 'PASA ' : 'FALLA'}  derivada             -> ${der.principal}`, okDer);
+
+  } catch (error) {
+    fallos++;
+    linea('EXCEPCIÓN: ' + error.message, false);
+  }
+
+  const t = document.getElementById('titulo');
+  t.textContent = fallos === 0 ? 'TODO CORRECTO en el navegador' : fallos + ' FALLO(S)';
+  t.className = fallos === 0 ? 'pasa' : 'falla';
+})();
+</script>
+</body>
+</html>

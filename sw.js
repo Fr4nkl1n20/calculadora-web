@@ -2,7 +2,7 @@
 //
 // Al cambiar cualquier archivo hay que subir VERSION, si no los navegadores
 // seguirán sirviendo la copia antigua desde la caché.
-const VERSION = 'calculadora-v1';
+const VERSION = 'calculadora-v2';
 
 const RECURSOS = [
   './',
@@ -40,6 +40,12 @@ self.addEventListener('activate', (evento) => {
 self.addEventListener('fetch', (evento) => {
   const peticion = evento.request;
   if (peticion.method !== 'GET') return;
+
+  // La calculadora científica queda fuera de la caché a propósito: descarga
+  // Pyodide (12 MB) de otro origen, que no tiene sentido guardar aquí, y su
+  // motor.py cambia con el proyecto. Servirlo desde caché daría cálculos
+  // hechos con una versión vieja del motor sin que nadie se entere.
+  if (new URL(peticion.url).pathname.includes('/cientifica/')) return;
 
   evento.respondWith(
     caches.match(peticion).then((enCache) => {

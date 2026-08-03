@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0f18">
+  <meta name="description" content="Calculadora científica completa con motor en Python ejecutándose en el navegador.">
+  <title>Calculadora científica</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link rel="icon" href="../assets/icono.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div class="aparato">
+
+  <!-- ---------------- Cabecera ---------------- -->
+  <header class="cabecera">
+    <div class="marca">
+      <span class="modelo">fx&#8209;PY</span>
+      <span class="submarca">CIENTÍFICA · motor en Python</span>
+    </div>
+    <a class="volver" href="../">← Calculadora básica</a>
+  </header>
+
+  <!-- ---------------- Pantalla ---------------- -->
+  <section class="lcd" aria-live="polite">
+    <div class="indicadores">
+      <button type="button" class="indicador" id="ind-angulo" title="Cambiar unidad angular">DEG</button>
+      <button type="button" class="indicador" id="ind-formato" title="Cambiar formato numérico">NORM</button>
+      <span class="indicador pasivo" id="ind-shift" hidden>SHIFT</span>
+      <span class="indicador pasivo" id="ind-alpha" hidden>ALPHA</span>
+      <span class="indicador pasivo" id="ind-memoria" hidden>M</span>
+      <span class="crece"></span>
+      <span class="indicador estado" id="ind-estado">Cargando Python…</span>
+    </div>
+
+    <input class="entrada" id="entrada" type="text" spellcheck="false" autocomplete="off"
+           inputmode="text" aria-label="Expresión" placeholder="Escribe o pulsa las teclas">
+
+    <div class="salida">
+      <div class="resultado" id="resultado">0</div>
+      <div class="alterno" id="alterno"></div>
+    </div>
+  </section>
+
+  <!-- ---------------- Aviso de carga ---------------- -->
+  <div class="cargando" id="cargando">
+    <div class="barra"><span></span></div>
+    <p id="cargando-texto">Descargando el intérprete de Python (unos 12 MB la primera vez)…</p>
+  </div>
+
+  <!-- ---------------- Modos ---------------- -->
+  <nav class="modos" id="modos" role="tablist">
+    <button role="tab" class="modo activo" data-panel="calcular">Calcular</button>
+    <button role="tab" class="modo" data-panel="estadistica">Estadística</button>
+    <button role="tab" class="modo" data-panel="ecuaciones">Ecuaciones</button>
+    <button role="tab" class="modo" data-panel="calculo">Cálculo</button>
+    <button role="tab" class="modo" data-panel="tabla">Tabla</button>
+    <button role="tab" class="modo" data-panel="basen">Base&#8209;N</button>
+    <button role="tab" class="modo" data-panel="unidades">Unidades</button>
+    <button role="tab" class="modo" data-panel="constantes">Constantes</button>
+  </nav>
+
+  <!-- ---------------- Panel: teclado ---------------- -->
+  <section class="panel activo" id="panel-calcular">
+    <div class="teclado" id="teclado"></div>
+  </section>
+
+  <!-- ---------------- Panel: estadística ---------------- -->
+  <section class="panel" id="panel-estadistica">
+    <div class="campos">
+      <label>Tipo
+        <select id="stat-tipo">
+          <option value="1var">Una variable</option>
+          <option value="2var">Dos variables (regresión)</option>
+        </select>
+      </label>
+      <label id="stat-modelo-campo" hidden>Modelo
+        <select id="stat-modelo">
+          <option value="lineal">Lineal · y = A + Bx</option>
+          <option value="logaritmica">Logarítmico · y = A + B·ln x</option>
+          <option value="exponencial">Exponencial · y = A·e^(Bx)</option>
+          <option value="potencial">Potencial · y = A·x^B</option>
+          <option value="inversa">Inverso · y = A + B/x</option>
+        </select>
+      </label>
+    </div>
+    <label class="ancho">Datos
+      <textarea id="stat-datos" rows="5" spellcheck="false"
+        placeholder="Una variable: 2, 4, 4, 5, 7&#10;Dos variables: una pareja por línea → 1 2"></textarea>
+    </label>
+    <button class="ejecutar" id="stat-calcular">Calcular</button>
+    <div class="resultados" id="stat-salida"></div>
+  </section>
+
+  <!-- ---------------- Panel: ecuaciones ---------------- -->
+  <section class="panel" id="panel-ecuaciones">
+    <div class="campos">
+      <label>Tipo
+        <select id="eq-tipo">
+          <option value="polinomio">Polinomio (raíces)</option>
+          <option value="sistema">Sistema de ecuaciones</option>
+          <option value="expresion">Resolver f(X) = 0</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="eq-polinomio">
+      <label class="ancho">Coeficientes, del grado mayor al menor
+        <input id="eq-coef" type="text" spellcheck="false" placeholder="1, -3, 2  →  x² − 3x + 2">
+      </label>
+    </div>
+
+    <div id="eq-sistema" hidden>
+      <label class="ancho">Matriz ampliada: una ecuación por línea, coeficientes y término independiente
+        <textarea id="eq-matriz" rows="4" spellcheck="false"
+          placeholder="2 1 5&#10;1 -1 1"></textarea>
+      </label>
+    </div>
+
+    <div id="eq-expresion" hidden>
+      <div class="campos">
+        <label class="ancho">Expresión igualada a cero
+          <input id="eq-expr" type="text" spellcheck="false" placeholder="X^2-9">
+        </label>
+        <label>Valor inicial
+          <input id="eq-inicial" type="text" value="1">
+        </label>
+      </div>
+    </div>
+
+    <button class="ejecutar" id="eq-calcular">Resolver</button>
+    <div class="resultados" id="eq-salida"></div>
+  </section>
+
+  <!-- ---------------- Panel: cálculo ---------------- -->
+  <section class="panel" id="panel-calculo">
+    <div class="campos">
+      <label>Operación
+        <select id="cal-tipo">
+          <option value="derivada">Derivada en un punto</option>
+          <option value="integral">Integral definida</option>
+        </select>
+      </label>
+      <label class="ancho">Función de X
+        <input id="cal-expr" type="text" spellcheck="false" placeholder="X^3">
+      </label>
+    </div>
+    <div class="campos">
+      <label id="cal-punto-campo">Punto
+        <input id="cal-punto" type="text" value="2">
+      </label>
+      <label id="cal-a-campo" hidden>Desde
+        <input id="cal-a" type="text" value="0">
+      </label>
+      <label id="cal-b-campo" hidden>Hasta
+        <input id="cal-b" type="text" value="3">
+      </label>
+    </div>
+    <button class="ejecutar" id="cal-calcular">Calcular</button>
+    <div class="resultados" id="cal-salida"></div>
+  </section>
+
+  <!-- ---------------- Panel: tabla ---------------- -->
+  <section class="panel" id="panel-tabla">
+    <div class="campos">
+      <label class="ancho">Función de X
+        <input id="tab-expr" type="text" spellcheck="false" placeholder="X^2">
+      </label>
+    </div>
+    <div class="campos">
+      <label>Desde <input id="tab-desde" type="text" value="1"></label>
+      <label>Hasta <input id="tab-hasta" type="text" value="10"></label>
+      <label>Paso <input id="tab-paso" type="text" value="1"></label>
+    </div>
+    <button class="ejecutar" id="tab-calcular">Generar</button>
+    <div class="resultados" id="tab-salida"></div>
+  </section>
+
+  <!-- ---------------- Panel: base-n ---------------- -->
+  <section class="panel" id="panel-basen">
+    <div class="campos">
+      <label class="ancho">Valor
+        <input id="bin-valor" type="text" spellcheck="false" placeholder="255">
+      </label>
+      <label>Base de entrada
+        <select id="bin-desde">
+          <option value="10">Decimal</option>
+          <option value="2">Binario</option>
+          <option value="8">Octal</option>
+          <option value="16">Hexadecimal</option>
+        </select>
+      </label>
+    </div>
+    <button class="ejecutar" id="bin-convertir">Convertir</button>
+
+    <div class="separador">Operaciones lógicas de 32 bits</div>
+    <div class="campos">
+      <label>a <input id="bin-a" type="text" value="12"></label>
+      <label>Operación
+        <select id="bin-op">
+          <option value="and">AND</option><option value="or">OR</option>
+          <option value="xor">XOR</option><option value="xnor">XNOR</option>
+          <option value="not">NOT (solo a)</option><option value="neg">NEG (solo a)</option>
+        </select>
+      </label>
+      <label>b <input id="bin-b" type="text" value="10"></label>
+    </div>
+    <button class="ejecutar" id="bin-logica">Aplicar</button>
+    <div class="resultados" id="bin-salida"></div>
+
+    <div class="separador">Factorización en primos</div>
+    <div class="campos">
+      <label class="ancho">Número entero
+        <input id="fac-n" type="text" value="360">
+      </label>
+    </div>
+    <button class="ejecutar" id="fac-calcular">Factorizar</button>
+    <div class="resultados" id="fac-salida"></div>
+  </section>
+
+  <!-- ---------------- Panel: unidades ---------------- -->
+  <section class="panel" id="panel-unidades">
+    <div class="campos">
+      <label>Valor <input id="uni-valor" type="text" value="1"></label>
+      <label>De <select id="uni-desde"></select></label>
+      <label>A <select id="uni-hacia"></select></label>
+    </div>
+    <button class="ejecutar" id="uni-convertir">Convertir</button>
+    <div class="resultados" id="uni-salida"></div>
+  </section>
+
+  <!-- ---------------- Panel: constantes ---------------- -->
+  <section class="panel" id="panel-constantes">
+    <p class="nota">Pulsa una constante para insertar su símbolo en la expresión.</p>
+    <div class="resultados" id="const-salida"></div>
+  </section>
+
+  <!-- ---------------- Historial ---------------- -->
+  <details class="registro">
+    <summary>Historial</summary>
+    <ol id="registro"></ol>
+    <p class="nota" id="registro-vacio">Todavía no has calculado nada.</p>
+  </details>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.3/full/pyodide.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

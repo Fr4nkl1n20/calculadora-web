@@ -2,10 +2,18 @@
 
 [![Pruebas](https://github.com/Fr4nkl1n20/calculadora-web/actions/workflows/pruebas.yml/badge.svg)](https://github.com/Fr4nkl1n20/calculadora-web/actions/workflows/pruebas.yml)
 
-Calculadora con temática de béisbol, hecha con HTML, CSS y JavaScript puro
-(sin dependencias, sin build, sin imágenes de mapa de bits).
+Dos calculadoras en el mismo sitio, sin dependencias ni build:
 
-**En vivo:** https://fr4nkl1n20.github.io/calculadora-web/
+| | Motor | Enlace |
+| --- | --- | --- |
+| **Básica**, con temática de béisbol | JavaScript | https://fr4nkl1n20.github.io/calculadora-web/ |
+| **Científica**, con todo lo de un modelo fx | Python sobre Pyodide | https://fr4nkl1n20.github.io/calculadora-web/cientifica/ |
+
+La científica está documentada aparte en [`cientifica/README.md`](cientifica/README.md):
+trigonometría en tres unidades angulares, complejos, estadística con regresión,
+ecuaciones, cálculo numérico, base-N, unidades y constantes físicas.
+
+El resto de este archivo describe la **calculadora básica**.
 
 ## Uso
 

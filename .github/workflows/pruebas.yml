@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  pruebas:
+  javascript:
+    name: Calculadora básica (JavaScript)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,3 +21,19 @@ jobs:
       # pruebas usan el ejecutor incorporado de Node.
       - name: Ejecutar las pruebas
         run: npm test
+
+  python:
+    name: Calculadora científica (Python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # motor.py es Python puro y las pruebas usan unittest de la biblioteca
+      # estándar: tampoco aquí hay nada que instalar.
+      - name: Ejecutar las pruebas del motor
+        working-directory: cientifica
+        run: python -m unittest discover -s pruebas -p "test_*.py" -v

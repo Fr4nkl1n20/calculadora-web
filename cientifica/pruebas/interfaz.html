@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Interfaz de la calculadora científica</title>
+<style>body{background:#0b0f18;color:#e7ecf5;font:14px ui-monospace,Consolas,monospace;padding:1.5rem;margin:0}
+.pasa{color:#6ee7a0}.falla{color:#ff8f96}h1{font-size:1.1rem}p{color:#8f9cb3}
+iframe{position:fixed;left:-2000px;width:800px;height:1400px;border:0}</style>
+</head>
+<body>
+<h1 id="titulo">Esperando a que arranque la calculadora…</h1>
+<p>Maneja la calculadora real dentro de un iframe: pulsa teclas y comprueba lo
+   que aparece en pantalla. Necesita servidor web y tarda lo que tarde Pyodide.</p>
+<pre id="salida"></pre>
+<iframe id="marco" src="../index.html"></iframe>
+<script>
+(async () => {
+  const salida = document.getElementById('salida');
+  let fallos = 0;
+  const linea = (t, ok) => {
+    const d = document.createElement('div');
+    if (ok !== undefined) d.className = ok ? 'pasa' : 'falla';
+    d.textContent = t;
+    salida.append(d);
+  };
+  const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  const marco = document.getElementById('marco');
+  await new Promise((r) => marco.addEventListener('load', r, { once: true }));
+  const doc = marco.contentDocument;
+
+  for (let i = 0; i < 240; i++) {
+    if (doc.getElementById('ind-estado').textContent.startsWith('Listo')) break;
+    await esperar(500);
+  }
+  const estado = doc.getElementById('ind-estado').textContent;
+  if (!estado.startsWith('Listo')) fallos++;
+  linea('Estado del motor: ' + estado, estado.startsWith('Listo'));
+
+  const teclas = [...doc.querySelectorAll('#teclado .tecla')];
+  const tecla = (etiqueta) => {
+    // Sólo el texto propio de la tecla, ignorando la etiqueta SHIFT superpuesta.
+    const b = teclas.find((t) => [...t.childNodes].filter((n) => n.nodeType === 3)
+      .map((n) => n.textContent).join('').trim() === etiqueta);
+    if (!b) throw new Error('no encuentro la tecla ' + etiqueta);
+    return b;
+  };
+  const pulsar = (...etiquetas) => etiquetas.forEach((e) => tecla(e).click());
+  const leer = () => doc.getElementById('resultado').textContent;
+  const entrada = () => doc.getElementById('entrada').value;
+
+  async function comprobar(nombre, acciones, esperado, lector = leer) {
+    pulsar('AC');
+    await esperar(60);
+    acciones();
+    await esperar(350);
+    const obtenido = lector();
+    const ok = obtenido === esperado;
+    if (!ok) fallos++;
+    linea(`${ok ? 'PASA ' : 'FALLA'}  ${nombre.padEnd(30)} esperado=${esperado}  obtenido=${obtenido}`, ok);
+  }
+
+  await comprobar('teclas 7 × 8 =', () => pulsar('7', '×', '8', '='), '56');
+  await comprobar('paréntesis y prioridad', () => pulsar('(', '2', '+', '3', ')', '×', '4', '='), '20');
+  await comprobar('fracción exacta', () => pulsar('1', '÷', '4', '='), '1/4');
+  await comprobar('inserta función sin(', () => pulsar('sin'), 'sin(', entrada);
+  await comprobar('seno de 30 en grados', () => pulsar('sin', '3', '0', ')', '='), '0.5');
+  await comprobar('constante pi', () => pulsar('π', '='), '3.1415926535898');
+  await comprobar('factorial con SHIFT', () => pulsar('SHIFT', 'x⁻¹'), '!', entrada);
+  await comprobar('error visible', () => pulsar('1', '÷', '0', '='), 'No se puede dividir entre cero');
+  await comprobar('DEL borra un carácter', () => pulsar('1', '2', '3', 'DEL'), '12', entrada);
+
+  pulsar('AC');
+  doc.getElementById('ind-angulo').click();
+  await esperar(300);
+  const modo = doc.getElementById('ind-angulo').textContent;
+  if (modo !== 'RAD') fallos++;
+  linea(`${modo === 'RAD' ? 'PASA ' : 'FALLA'}  cambio de unidad angular       esperado=RAD  obtenido=${modo}`, modo === 'RAD');
+
+  doc.querySelector('.modo[data-panel="ecuaciones"]').click();
+  doc.getElementById('eq-coef').value = '1, -3, 2';
+  doc.getElementById('eq-calcular').click();
+  await esperar(600);
+  const raices = doc.getElementById('eq-salida').textContent.replace(/\s+/g, ' ').trim();
+  const okRaices = raices.includes('1') && raices.includes('2');
+  if (!okRaices) fallos++;
+  linea(`${okRaices ? 'PASA ' : 'FALLA'}  panel de ecuaciones            -> ${raices}`, okRaices);
+
+  // El historial debe sobrevivir a AC; sólo SHIFT+AC lo borra.
+  const filas = doc.querySelectorAll('#registro li').length;
+  if (filas === 0) fallos++;
+  linea(`${filas > 0 ? 'PASA ' : 'FALLA'}  AC conserva el historial       -> ${filas} entradas`, filas > 0);
+
+  pulsar('SHIFT', 'AC');
+  await esperar(400);
+  const trasReset = doc.querySelectorAll('#registro li').length;
+  if (trasReset !== 0) fallos++;
+  linea(`${trasReset === 0 ? 'PASA ' : 'FALLA'}  SHIFT+AC vacía el historial    -> ${trasReset} entradas`, trasReset === 0);
+
+  const t = document.getElementById('titulo');
+  t.textContent = fallos === 0 ? 'INTERFAZ CORRECTA' : fallos + ' FALLO(S) EN LA INTERFAZ';
+  t.className = fallos === 0 ? 'pasa' : 'falla';
+})().catch((e) => {
+  const t = document.getElementById('titulo');
+  t.textContent = 'EXCEPCIÓN: ' + e.message;
+  t.className = 'falla';
+});
+</script>
+</body>
+</html>
